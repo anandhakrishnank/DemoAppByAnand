@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns:facebook="http://www.mulesoft.org/schema/mule/facebook" xmlns:twitter="http://www.mulesoft.org/schema/mule/twitter" version="EE-3.6.1" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:core="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:spring="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/twitter http://www.mulesoft.org/schema/mule/twitter/current/mule-twitter.xsd
+http://www.mulesoft.org/schema/mule/facebook http://www.mulesoft.org/schema/mule/facebook/current/mule-facebook.xsd">
+    <http:listener-config doc:name="HTTP Listener Configuration" host="0.0.0.0" name="HTTP_Listener_Configuration" port="8081"/>
+    <twitter:config name="Twitter" accessKey="58688587-3EpAhwX7ukTcrHIU2mpl3OVk0eYWybZUkV5aKfifa" accessSecret="khi4YviRp3NALlmcNjHk3qQBtxVbkGhWwpNeSiF5YLIPH" consumerKey="XgMOAG4IcEZlLSjTiOk06ZHzU" consumerSecret="2zFz3aJL2digo0wriB7oKrdTmoyP9xYcYTbxootMDnnkXfiu7i" doc:name="Twitter"/>
+    <flow name="HelloWorldFlow1">
+        <http:listener config-ref="HTTP_Listener_Configuration" doc:description="This endpoint receives an HTTP message." doc:name="Recieve HTTP request" path="helloWorld"/>
+        <twitter:get-followers config-ref="Twitter" doc:name="Twitter"/>
+        <set-payload doc:description="This processor sets the payload of the message to the string 'Hello World'." doc:name="Set Payload to a constant string" value="#[payload.toString()]"/>
+    </flow>
+</mule>
